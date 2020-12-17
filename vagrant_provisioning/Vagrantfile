@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure(2) do |config|
+
+  config.vm.provision "shell", path: "bootstrap.sh"
+  #config.vm.provision "shell", path: "bootstrap_rs.sh"
+
+  NodeCount = 2
+
+  # Kubernetes Worker Nodes
+  (0..NodeCount).each do |i|
+    config.vm.define "mongodb#{i}" do |workernode|
+      workernode.vm.box = "centos/7"
+      workernode.vm.hostname = "mongodb#{i}.example.com"
+      workernode.vm.network "private_network", ip: "172.16.20.10#{i}"
+      workernode.vm.provider "virtualbox" do |v|
+        v.name = "mongodb#{i}"
+        v.memory = 1024
+        v.cpus = 1
+        # Prevent VirtualBox from interfering with host audio stack
+        v.customize ["modifyvm", :id, "--audio", "none"]
+      end
+      workernode.vm.provider :libvirt do |v|
+        v.memory = 1048
+        v.nested = true
+        v.cpus = 1
+      end
+      workernode.vm.provision "shell", path: "bootstrap_replset.sh"
+    end
+  end
+
+end
