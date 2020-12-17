@@ -1,15 +1,15 @@
 # Mongodb Test Cluster 
 
 ## hosts 
-mongo1
-mongo2
-mongo3
+* mongodb0: 172.16.20.100    
+* mongodb1: 172.16.20.101
+* mongodb2: 172.16.20.102
 
 
+# change bindip
+```
 sed -i 's/bindIp: 127.0.0.1/bindIp: 0.0.0.0/g' /etc/mongod.conf
-bindIp: 127.0.0.1
-
-
+```
 
 ## /etc/mongod.conf
 
@@ -18,6 +18,8 @@ replication:
 
 
 ## initial replicaset
+
+```js
 rs.initiate( {
    _id : "rs0",
    members: [
@@ -28,10 +30,24 @@ rs.initiate( {
 })
 
 rs.conf()
+```
 
 ## Test 
-'''
+```js
 use test
 db.test.insertOne({"name":"test One"})
 db.test.find()
-'''
+```
+
+## Enable secondary read
+
+```js
+rs.secondaryOk()
+```
+
+## Using mongo shell
+
+```bash
+mongo "mongodb://mongodb0.example.com:27017,mongodb1.example.com:27017,mongodb2.example.com:27017/?replicaSet=rs0"
+```
+

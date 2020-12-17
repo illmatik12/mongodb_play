@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Update hosts file
-echo "[TASK 0)] Update /etc/hosts file"
+echo "[TASK 0] Update /etc/hosts file"
 cat >>/etc/hosts<<EOF
 172.16.20.100 mongodb0.example.com mongodb0 
 172.16.20.101 mongodb1.example.com mongodb1
