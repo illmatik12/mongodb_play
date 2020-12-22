@@ -9,7 +9,7 @@ Vagrant.configure(2) do |config|
 
   NodeCount = 2
 
-  # Kubernetes Worker Nodes
+  # Mongodb Worker Nodes
   (0..NodeCount).each do |i|
     config.vm.define "mongodb#{i}" do |workernode|
       workernode.vm.box = "centos/7"
@@ -28,6 +28,29 @@ Vagrant.configure(2) do |config|
         v.cpus = 1
       end
       workernode.vm.provision "shell", path: "bootstrap_replset.sh"
+    end
+  end
+
+  PMMNode = 1
+  # PMM Node 
+  (0..NodeCount).each do |i|
+    config.vm.define "pmm2" do |workernode|
+      workernode.vm.box = "centos/7"
+      workernode.vm.hostname = "pmm2.example.com"
+      workernode.vm.network "private_network", ip: "172.16.200.10#{i}"
+      workernode.vm.provider "virtualbox" do |v|
+        v.name = "pmmb#{i}"
+        v.memory = 1024
+        v.cpus = 1
+        # Prevent VirtualBox from interfering with host audio stack
+        v.customize ["modifyvm", :id, "--audio", "none"]
+      end
+      workernode.vm.provider :libvirt do |v|
+        v.memory = 1048
+        v.nested = true
+        v.cpus = 1
+      end
+      workernode.vm.provision "shell", path: "bootstrap_pmm.sh"
     end
   end
 
