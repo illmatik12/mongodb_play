@@ -4,10 +4,8 @@
 
 Vagrant.configure(2) do |config|
 
-  #config.vm.provision "shell", path: "bootstrap.sh"
-  #config.vm.provision "shell", path: "bootstrap_rs.sh"
 
-  NodeCount = 2
+  NodeCount = 3
 
   # Mongodb Worker Nodes
   (0..NodeCount).each do |i|
@@ -27,11 +25,11 @@ Vagrant.configure(2) do |config|
         v.nested = true
         v.cpus = 1
       end
-     # workernode.vm.provision "shell", path: "bootstrap_replset.sh"
+      workernode.vm.provision "shell", path: "bootstrap.sh"
     end
   end
 
-  OpsNode = 1
+  OpsNode = 0
   # MongoDB OpsManager  Node 
   (0..OpsNode).each do |i|
     config.vm.define "opsmanager" do |workernode|
@@ -44,11 +42,6 @@ Vagrant.configure(2) do |config|
         v.cpus = 2
         # Prevent VirtualBox from interfering with host audio stack
         v.customize ["modifyvm", :id, "--audio", "none"]
-      end
-      workernode.vm.provider :libvirt do |v|
-        v.memory = 2048 
-        v.nested = true
-        v.cpus = 2
       end
       workernode.vm.provision "shell", path: "bootstrap_ops.sh"
     end

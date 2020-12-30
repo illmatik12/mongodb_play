@@ -77,10 +77,24 @@ systemctl start mongodb-mms
 ```
 172.17.20.100 opsmongodb0.example.com opsmongodb0 
 172.17.20.101 opsmongodb1.example.com opsmongodb1
-172.17.20.102 opsmongodb2.example.com opsmongodb
+172.17.20.102 opsmongodb2.example.com opsmongodb2
 ```
 
+## Install automation agent 
 
+## Add mongodb replica node 
+- host add 
+- install automation agent 
+- configure replicaset on ops manager 
+
+
+
+
+
+# Connect replica set 
+```
+/var/lib/mongodb-mms-automation/mongodb-linux-x86_64-4.4.2/bin/mongo --host opsmongodb0.example.com --port 27017
+```
 
 ## BACKUP
 backup error occured 
