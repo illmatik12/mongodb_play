@@ -115,6 +115,25 @@ db.getSiblingDB("admin").createUser({
 ```
 
 
+## capture 
+![OpsManager](./png/ops_1.png)
+![OpsManager](./png/ops_2.png)
+![OpsManager](./png/ops_3.png)
+![OpsManager](./png/ops_4.png)
+![OpsManager](./png/ops_5.png)
+![OpsManager](./png/ops_6.png)
+![OpsManager](./png/ops_7.png)
+![OpsManager](./png/ops_8.png)
+![OpsManager](./png/ops_9.png)
+![OpsManager](./png/ops_10.png)
+![OpsManager](./png/ops_11.png)
+![OpsManager](./png/ops_12.png)
+![OpsManager](./png/ops_13.png)
+![OpsManager](./png/ops_14.png)
+![OpsManager](./png/ops_15.png)
+
+
+
 ## Reference 
 * https://docs.opsmanager.mongodb.com/current/installation/
 * https://www.youtube.com/watch?v=AHBDcvcbQ9k&list=PL34sAs7_26wPvZJqUJhjyNtm7UedWR8Ps&index=12
