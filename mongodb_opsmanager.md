@@ -81,6 +81,23 @@ systemctl start mongodb-mms
 ```
 
 ## Install automation agent 
+### Download the agent
+```
+curl -OL http://172.16.201.100:8080/download/agent/automation/mongodb-mms-automation-agent-manager-10.14.17.6445-1.x86_64.rhel7.rpm
+
+and install the package.
+sudo rpm -U mongodb-mms-automation-agent-manager-10.14.17.6445-1.x86_64.rhel7.rpm
+Open the config file
+sudo vi /etc/mongodb-mms/automation-agent.config
+and enter your API key, Project ID, and Ops Manager Base URL as shown below.
+mmsGroupId=5fec26615f8b63097fdd4ebe
+mmsApiKey=<Insert Agent API Key Here>
+mmsBaseUrl=http://172.16.201.100:8080
+
+systemctl enable mongodb-mms-automation-agent
+systemctl start mongodb-mms-automation-agent
+```
+
 
 ## Add mongodb replica node 
 - host add 
